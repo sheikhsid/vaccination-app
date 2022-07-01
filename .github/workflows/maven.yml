@@ -23,4 +23,19 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml', '**/*.yml') }}
+        restore-keys: ${{ runner.os }}-m2-
+    - name: Unit and Integration Tests
+      run: mvn verify -Pjacoco
+    - name: Coveralls Report
+      run: >
+        mvn install coveralls:report
+        -DrepoToken=$COVERALLS_REPO_TOKEN
+        -DpullRequest=${{ github.event.pull_request.number }} -X
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}

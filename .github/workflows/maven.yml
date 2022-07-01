@@ -35,7 +35,7 @@ jobs:
       run: >
         mvn install coveralls:report
         -DrepoToken=$COVERALLS_REPO_TOKEN
-        -DpullRequest=${{ github.event.pull_request.number }} -X
+        -DpullRequest=${{ github.event.pull_request.number }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}

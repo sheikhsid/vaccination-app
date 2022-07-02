@@ -8,4 +8,6 @@ public interface PtService
 	
 	List<PtDto> getAllPt();
 
+	PtDto createNewPt(PtDto pt);
+
 }

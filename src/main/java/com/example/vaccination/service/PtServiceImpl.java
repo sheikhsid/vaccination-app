@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+
+
 import com.example.vaccination.dao.*;
 import com.example.vaccination.dto.PtDto;
+import com.example.vaccination.entities.PtEntities;
 import com.example.vaccination.mapper.PtMapper;
 
 @RequiredArgsConstructor
@@ -20,6 +23,17 @@ public class PtServiceImpl implements PtService{
 		
 		var ptentities = ptDaoRef.findAll();
 		return ptMapper.toPtDto(ptentities);
+	}
+
+	@Override
+	public PtDto createNewPt(PtDto pt) {
+		// TODO Auto-generated method stub
+		PtEntities dtPtEntities = ptMapper.ptDtoToptEntity(pt);
+			
+		PtEntities savedPtEntities = ptDaoRef.save(dtPtEntities);
+        return  ptMapper.ptEntityToptDto(savedPtEntities);
+ 
+
 	}
 
 }

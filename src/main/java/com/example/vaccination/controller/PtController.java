@@ -1,10 +1,15 @@
 package com.example.vaccination.controller;
 
-import java.util.List;
+import java.util.*;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.validation.*;
+
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
+import org.springframework.validation.*;
+import org.springframework.web.bind.annotation.*;
+
+
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.service.PtService;
 
@@ -18,6 +23,7 @@ public class PtController
 	
 	private final PtService ptServiceRef;
 
+
 	public PtController(PtService ptservice) {
 		
 		this.ptServiceRef = ptservice;
@@ -26,6 +32,15 @@ public class PtController
 	@GetMapping("/allpt")
 	public List<PtDto> getAllPt() {
 		return ptServiceRef.getAllPt();
+	}
+	
+	
+	
+	@PostMapping(value = "/new/pt", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<Object> createNewPt(@Valid @RequestBody PtDto ptDto, BindingResult bindingResult) {
+		
+		log.debug("created successfully " + ptDto.getPtFiscalCode());
+		return new ResponseEntity<>(ptServiceRef.createNewPt(ptDto), HttpStatus.CREATED);
 	}
 
 }

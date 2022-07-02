@@ -1,6 +1,7 @@
 package com.example.vaccination.test.controller;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -11,9 +12,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.*;
 
-
+import org.hamcrest.core.Is;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
+import org.mapstruct.factory.Mappers;
 import org.mockito.*;
 import org.mockito.junit.jupiter.*;
 import org.springframework.http.*;
@@ -25,6 +27,7 @@ import org.springframework.validation.BindingResult;
 import com.example.vaccination.controller.PtController;
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.service.PtService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 class PtControllerTest 
@@ -44,11 +47,13 @@ class PtControllerTest
 	
 	MockMvc mockMvc;
 	
+	
 	@BeforeEach
 	void setUp() {
 		ptController = new PtController(ptService);
 		mockMvc = MockMvcBuilders.standaloneSetup(ptController).build();
 	}
+	private final ObjectMapper mapper = new ObjectMapper();
 	
 	@Test
 	void testGetAll() throws Exception {
@@ -64,7 +69,7 @@ class PtControllerTest
 		// when // then
 		when(ptService.getAllPt()).thenReturn(pt);
 		
-		this.mockMvc.perform(get("/pt/api/allpt").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/allpt").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$[0].id", is(1)))
 				.andExpect(jsonPath("$[0].ptName", is("Saad")))
 				.andExpect(jsonPath("$[0].ptFiscalCode", is("1234567891234567")))
@@ -73,7 +78,7 @@ class PtControllerTest
 	
 	@Test
 	void testGetAllNull() throws Exception {
-		this.mockMvc.perform(get("/pt/api/allpt").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/allpt").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(content().json("[]"));
 	}
 	
@@ -97,7 +102,40 @@ class PtControllerTest
 		then(ptService).should().createNewPt(any(PtDto.class));
 		then(ptService).shouldHaveNoMoreInteractions();
 	}
+
+	@Test
+	void testCreatePTOk() throws Exception
+	{
+		
+		PtDto ptDto = getPtDto(PT_FISCAL_CODE);
+		
+		//given
+		given(ptService.createNewPt(any(PtDto.class))).willReturn(ptDto);
+		
+		//when
+		mockMvc.perform(post("/api/new/pt").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(ptDto)))
+		.andExpect(status().isCreated())
+		.andExpect(jsonPath("$.ptName", equalTo(PT_NAME)))
+		.andExpect(jsonPath("$.ptFiscalCode", equalTo(PT_FISCAL_CODE)))
+		.andExpect(jsonPath("$.ptVaccsionationName", equalTo(PT_VACCSIONATION_NAME)));
+	}
 	
+	@Test
+	void testCreatePT400() throws Exception
+	{
+		//given
+		PtDto ptDto = new PtDto();
+		ptDto.setId(ID);
+		ptDto.setPtName(PT_NAME);
+		ptDto.setPtFiscalCode("123P");
+		ptDto.setPtVaccsionationName(PT_VACCSIONATION_NAME);
+		
+		//when
+		mockMvc.perform(post("/api/new/pt").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(ptDto)))
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.ptFiscalCode", Is.is("Please use proper 16 Digits Fiscal Code")));
+		
+	}
 	private PtDto getPtDto(String ptFiscalCode) {
 		// TODO Auto-generated method stub
 		PtDto ptDto = new PtDto();

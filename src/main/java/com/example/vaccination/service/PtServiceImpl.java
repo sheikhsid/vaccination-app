@@ -20,7 +20,7 @@ public class PtServiceImpl implements PtService{
 	private static final PtMapper ptMapper = PtMapper.INSTANCE;
 	
 	public List<PtDto> getAllPt() {
-		
+		// TODO Auto-generated method stub
 		var ptentities = ptDaoRef.findAll();
 		return ptMapper.toPtDto(ptentities);
 	}

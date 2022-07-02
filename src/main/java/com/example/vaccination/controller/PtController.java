@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/pt/api/")
+@RequestMapping("/api/")
 public class PtController 
 {
 	
@@ -38,6 +38,13 @@ public class PtController
 	
 	@PostMapping(value = "/new/pt", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Object> createNewPt(@Valid @RequestBody PtDto ptDto, BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			Map<String, String> errorsMap = new HashMap<>();
+			bindingResult.getFieldErrors()
+					.forEach(fieldError -> errorsMap.put(fieldError.getField(), fieldError.getDefaultMessage()));
+			return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+		}
 		
 		log.debug("created successfully " + ptDto.getPtFiscalCode());
 		return new ResponseEntity<>(ptServiceRef.createNewPt(ptDto), HttpStatus.CREATED);

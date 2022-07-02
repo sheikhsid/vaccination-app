@@ -17,7 +17,7 @@ public class PtDto
 	@NotBlank(message = "Pt Name is required")
 	private String ptName;
 	@NotNull(message = "Fiscal Code is required")
-	@Size(min = 16, message = "Please use proper 16 Digits Fiscal Code")
+	@Size(min = 16, max = 17, message = "Please use proper 16 Digits Fiscal Code")
 	@Column(updatable = false,unique = true)
 	private String ptFiscalCode;
 	@NotBlank(message = "User Vaccsionation Name is required")

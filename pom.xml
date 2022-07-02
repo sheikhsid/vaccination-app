@@ -19,8 +19,8 @@
 		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<sonar.projectKey>sheikhsid_vaccination</sonar.projectKey>
 		<sonar.organization>sheikhsid1</sonar.organization>
+  		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.coverage.exclusions>
 			**/VaccinationApplication.*,

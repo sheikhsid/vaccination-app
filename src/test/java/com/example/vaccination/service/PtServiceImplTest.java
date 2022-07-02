@@ -18,7 +18,7 @@ import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.entities.PtEntities;
 
 @ExtendWith(MockitoExtension.class)
-public class PtServiceImplTest {
+class PtServiceImplTest {
 	
 	@Mock
 	private PtDao ptDao;

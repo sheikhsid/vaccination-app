@@ -25,7 +25,7 @@ import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.service.PtService;
 
 @ExtendWith(MockitoExtension.class)
-public class PtControllerTest 
+class PtControllerTest 
 {
 	
 	PtController ptController;

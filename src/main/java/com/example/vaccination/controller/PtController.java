@@ -15,6 +15,8 @@ import com.example.vaccination.service.PtService;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+
 @Slf4j
 @RestController
 @RequestMapping("/api/")

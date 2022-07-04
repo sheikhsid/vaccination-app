@@ -10,4 +10,6 @@ public interface PtService
 
 	PtDto createNewPt(PtDto pt);
 
+	PtDto updatePtById(long ptId, PtDto ptDto);
+
 }

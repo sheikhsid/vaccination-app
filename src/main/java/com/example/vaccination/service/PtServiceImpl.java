@@ -36,4 +36,10 @@ public class PtServiceImpl implements PtService{
 
 	}
 
+	@Override
+	public PtDto updatePtById(long ptId, PtDto ptDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -46,20 +46,20 @@ public class PtWebControllerTest {
 	private PtService ptService;
 	
 	@Test
-	public void testStatus200() throws Exception {
+	void testStatus200() throws Exception {
 	mvc.perform(get("/"))
 	.andExpect(status().is2xxSuccessful());
 	}
 	
 	@Test
-	public void testReturnHomeView() throws Exception {
+	void testReturnHomeView() throws Exception {
 	ModelAndViewAssert.assertViewName(mvc.perform(get("/"))
 	.andReturn()
 	.getModelAndView(), "index");
 	}
 	
 	@Test
-	public void testGetAll_View() throws Exception {
+	void testGetAll_View() throws Exception {
 	List<PtDto> pt = new ArrayList<PtDto>();
 	PtDto ptOne = new PtDto();
 	ptOne.setId(1L);
@@ -78,7 +78,7 @@ public class PtWebControllerTest {
 	}
 	
 	@Test
-	public void test_InsertPt() throws Exception {
+	void test_InsertPt() throws Exception {
 	mvc.perform(post("/save")
 	.param("ptName", "Saad")
 	.param("ptFiscalCode", "1234567891234567")
@@ -89,7 +89,7 @@ public class PtWebControllerTest {
 	}
 	
 	@Test
-	public void test_UpdateExistingPt() throws Exception {
+	void test_UpdateExistingPt() throws Exception {
 	mvc.perform(post("/save")
 	.param("id", "1")
 	.param("ptName", "Saad")

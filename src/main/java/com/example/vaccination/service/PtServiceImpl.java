@@ -20,14 +20,14 @@ public class PtServiceImpl implements PtService{
 	private static final PtMapper ptMapper = PtMapper.INSTANCE;
 	
 	public List<PtDto> getAllPt() {
-		// TODO Auto-generated method stub
+		
 		var ptentities = ptDaoRef.findAll();
 		return ptMapper.toPtDto(ptentities);
 	}
 
 	@Override
 	public PtDto createNewPt(PtDto pt) {
-		// TODO Auto-generated method stub
+		
 		PtEntities dtPtEntities = ptMapper.ptDtoToptEntity(pt);
 			
 		PtEntities savedPtEntities = ptDaoRef.save(dtPtEntities);
@@ -38,7 +38,7 @@ public class PtServiceImpl implements PtService{
 
 	@Override
 	public PtDto updatePtById(long ptId, PtDto ptDto) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

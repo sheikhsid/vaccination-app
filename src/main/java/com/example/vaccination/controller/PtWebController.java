@@ -18,12 +18,7 @@ public class PtWebController {
 	@Autowired
 	private PtService ptServiceRef;
 	
-//	@RequestMapping("/")
-//	public String welcome(Map<String, Object> model) {
-//	model.put("message", "World");
-//	return "index";
-//	}
-	
+
 	@GetMapping("/")
 	public String index(Model model) 
 	{

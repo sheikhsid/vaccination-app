@@ -2,9 +2,35 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Hello Page</title>
+<meta charset="UTF-8"/>
+<title>PT</title>
 </head>
 <body>
-<p><span th:text="'Hello ' + ${message}"></span></p>
+	<p><span th:text="'Hello ' + ${message}"></span></p>
+	<!-- if record has been empty  --> 
+	<div th:if="${pt.empty}">
+		<div>No PT</div>
+	</div>
+	<!-- else record -->
+	<div th:unless="${pt.empty}">
+		<table id="pt_table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>PT_NAME</th>
+					<th>PT_FISCAL_CODE</th>
+					<th>PT_VACCSIONATION_NAME</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="pt : ${pt}">
+				<td th:text="${pt.id}"></td>
+				<td th:text="${pt.ptName}"></td>
+				<td th:text="${pt.ptFiscalCode}"></td>
+				<td th:text="${pt.ptVaccsionationName}"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

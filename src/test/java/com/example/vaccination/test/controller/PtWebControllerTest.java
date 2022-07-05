@@ -21,7 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.ModelAndViewAssert;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -34,16 +39,23 @@ import com.example.vaccination.service.PtService;
 @WebMvcTest(controllers = PtWebController.class)
 public class PtWebControllerTest {
 	
-	public static final Long ID = 1L;
-	public static final String PT_NAME = "Saad";
-	public static final String PT_FISCAL_CODE = "1234567891234567";
-	public static final String PT_VACCSIONATION_NAME = "Modena";
+	public static final Long ID =1L;
+	public static final String PT_NAME ="Saad";
+	public static final String PT_FISCAL_CODE ="1234567891234567";
+	public static final String PT_VACCSIONATION_NAME ="Modena";
+	
+	@Autowired
+	private WebClient webClient;
 	
 	@Autowired
 	private MockMvc mvc;
 	
 	@MockBean
 	private PtService ptService;
+	
+	private String removeWindowsCR(String s) {
+		return s.replace("\r", "");
+	}
 	
 	@Test
 	void testStatus200() throws Exception {
@@ -99,6 +111,37 @@ public class PtWebControllerTest {
 	verify(ptService)
 	.updatePtById(1L, new PtDto(1L, "Saad", "1234567891234567", "Modena"));
 	}
+	
+	@Test
+	public void tesIndexPageTitle() throws Exception {
+	HtmlPage page = webClient.getPage("/");
+	assertThat(page.getTitleText()).isEqualTo("PT");
+	}
+	
+	@Test
+	public void testIndexPageShowPtRecord() throws Exception
+	{
+		List<PtDto> pt = new ArrayList<PtDto>();
+		PtDto ptOne = new PtDto();
+		ptOne.setId(1L);
+		ptOne.setPtName(PT_NAME);
+		ptOne.setPtFiscalCode(PT_FISCAL_CODE);
+		ptOne.setPtVaccsionationName(PT_VACCSIONATION_NAME);
+		pt.add(ptOne);
+	
+		when(ptService.getAllPt())
+		.thenReturn(pt);
+		HtmlPage page = this.webClient.getPage("/");
+		assertThat(page.getBody().getTextContent())
+		.doesNotContain("No PT");
+		HtmlTable table = page.getHtmlElementById("pt_table");
+		assertThat(removeWindowsCR(table.asNormalizedText()))
+		.isEqualTo(
+					"ID	PT_NAME	PT_FISCAL_CODE	PT_VACCSIONATION_NAME\n" +
+							"1	Saad	1234567891234567	Modena" 
+				);
+	}
+	
 	
 	
 	

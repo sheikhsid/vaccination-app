@@ -42,4 +42,10 @@ public class PtServiceImpl implements PtService{
 		return null;
 	}
 
+	@Override
+	public PtDto getPtById(long ptId) {
+		
+		return null;
+	}
+
 }

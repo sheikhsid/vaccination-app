@@ -11,7 +11,7 @@ public interface PtService
 	PtDto createNewPt(PtDto pt);
 
 	PtDto updatePtById(long ptId, PtDto ptDto);
-	
-	PtDto getPtById(long ptId);
+
+	void deleteById(long ptId);
 
 }

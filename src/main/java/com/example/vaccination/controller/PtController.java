@@ -24,6 +24,7 @@ public class PtController
 {
 	
 	private final PtService ptServiceRef;
+	
 
 
 	public PtController(PtService ptservice) {
@@ -51,5 +52,35 @@ public class PtController
 		log.debug("created successfully " + ptDto.getPtFiscalCode());
 		return new ResponseEntity<>(ptServiceRef.createNewPt(ptDto), HttpStatus.CREATED);
 	}
+	
+	@PutMapping("/pt/{ptId}")
+	public ResponseEntity<Object> updatePtById(@PathVariable Long ptId, @RequestBody PtDto ptDto) 
+	{
+		try
+		{
+			log.debug("Successfully update PT");
+			return new ResponseEntity<>(ptServiceRef.updatePtById(ptId, ptDto), HttpStatus.OK);
+			
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@DeleteMapping("/{ptId}")
+	public ResponseEntity<Object>  deletePt(@PathVariable long ptId) {
+//		try 
+//		{
+			ptServiceRef.deleteById(ptId);
+			log.debug("Successfully Delet PT");
+            return new ResponseEntity<>("PT: "+ptId+" has been deleted successfully",HttpStatus.OK);			
+//		} 
+//		catch (Exception e) 
+//		{
+//			 return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+//		}
+	}
+	
 
 }

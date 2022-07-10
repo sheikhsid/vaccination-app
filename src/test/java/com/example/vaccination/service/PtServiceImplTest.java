@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.*;
 
@@ -16,6 +18,8 @@ import org.mockito.junit.jupiter.*;
 import com.example.vaccination.dao.PtDao;
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.entities.PtEntities;
+import com.example.vaccination.exceptions.PtIdExce;
+import com.example.vaccination.exceptions.PtNotFoundExce;
 
 @ExtendWith(MockitoExtension.class)
 class PtServiceImplTest {
@@ -57,5 +61,137 @@ class PtServiceImplTest {
 		
 		
 	}
+	
+	
+	@Test
+	void testAdd() throws Exception {
+		// given
+		PtEntities ptOne = new PtEntities();
+		ptOne.setId(1L);
+		ptOne.setPtName("Saad");
+		ptOne.setPtFiscalCode("1234567891234567");
+		ptOne.setPtVaccsionationName("Modena");
+
+		PtDto dtOne = new PtDto();
+		dtOne.setId(ptOne.getId());
+		dtOne.setPtName(ptOne.getPtName());
+		dtOne.setPtFiscalCode(ptOne.getPtFiscalCode());
+		dtOne.setPtVaccsionationName(ptOne.getPtVaccsionationName());
+
+		given(ptDao.save(any(PtEntities.class))).willReturn(ptOne);
+		// When
+		PtDto dtTwo = ptService.createNewPt(dtOne);
+
+		// then
+		assertNotNull(dtTwo);
+		assertEquals(1L, dtTwo.getId());
+		assertEquals("Saad", dtTwo.getPtName());
+		assertEquals("1234567891234567", dtTwo.getPtFiscalCode());
+		assertEquals("Modena", dtTwo.getPtVaccsionationName());
+		assertNotNull(dtTwo.getId());
+
+	}
+	
+	
+	@Test
+	void testAddExcep() {
+		// given
+		PtEntities ptOne = new PtEntities();
+		ptOne.setId(1L);
+		ptOne.setPtName("Saad");
+		ptOne.setPtFiscalCode("1234567891234567");
+		ptOne.setPtVaccsionationName("Modena");
+
+		PtDto dtOne = new PtDto();
+		dtOne.setId(ptOne.getId());
+		dtOne.setPtName(ptOne.getPtName());
+		dtOne.setPtFiscalCode(ptOne.getPtFiscalCode());
+		dtOne.setPtVaccsionationName(ptOne.getPtVaccsionationName());
+
+		// when
+		given(ptDao.save(any(PtEntities.class))).willThrow(PtIdExce.class);
+		// then
+		assertThrows(PtIdExce.class, () -> ptService.createNewPt(dtOne));
+	}
+	
+	@Test
+	void testDelete() throws Exception {
+		// given
+		PtEntities ptOne = new PtEntities();
+		ptOne.setId(1L);
+		ptOne.setPtName("Saad");
+		ptOne.setPtFiscalCode("1234567891234567");
+		ptOne.setPtVaccsionationName("Modena");;
+		// When
+		ptService.deleteById(1L);
+
+		// then
+		then(ptDao).should().deleteById(anyLong());
+		then(ptDao).shouldHaveNoMoreInteractions();
+	}
+	
+	@Test
+	void testUpdate() {
+		// given
+		PtDto dtOne = new PtDto();
+		dtOne.setId(1L);
+		dtOne.setPtName("Saad");
+		dtOne.setPtFiscalCode("1234567891234567");
+		dtOne.setPtVaccsionationName("Modena");
+
+		PtEntities ptOne = new PtEntities();
+		ptOne.setId(dtOne.getId());
+		ptOne.setPtName(dtOne.getPtName());
+		ptOne.setPtFiscalCode(dtOne.getPtFiscalCode());
+		ptOne.setPtVaccsionationName(dtOne.getPtVaccsionationName());
+
+		PtEntities sv = new PtEntities();
+		sv.setId(1L);
+		sv.setPtName(dtOne.getPtName());
+		sv.setPtFiscalCode(dtOne.getPtFiscalCode());
+		sv.setPtVaccsionationName(dtOne.getPtVaccsionationName());
+		
+		given(ptDao.findById(anyLong())).willReturn(Optional.of(ptOne));
+		given(ptDao.save(any(PtEntities.class))).willReturn(sv);
+
+		// When
+		PtDto dtTwo = ptService.updatePtById(1L, dtOne);
+		// Then
+		assertEquals(dtTwo.getPtName(), sv.getPtName());
+		assertEquals(dtTwo.getId(), sv.getId());
+		assertNotNull(dtTwo.getId());
+		assertNotNull(dtTwo.getPtFiscalCode());
+		assertEquals(dtTwo.getPtVaccsionationName(), sv.getPtVaccsionationName());
+		assertEquals(sv.getPtFiscalCode(), dtTwo.getPtFiscalCode());
+
+		then(ptDao).should().save(any(PtEntities.class));
+		then(ptDao).shouldHaveNoMoreInteractions();
+		then(ptDao).shouldHaveNoMoreInteractions();
+
+	}
+	
+	@Test
+	void testUpdateThrows() {
+		PtDto dtOne = new PtDto();
+		assertThrows(PtNotFoundExce.class, () -> ptService.updatePtById(1L, dtOne));
+	}
+	
+	
+	@Test
+	void test_UserUpdateThrowsUserIdExceptions() {
+		// given
+		PtDto dtOne = new PtDto();
+		dtOne.setId(1L);
+
+		PtEntities ptOne = new PtEntities();
+		ptOne.setId(2L);
+		given(ptDao.findById(anyLong())).willReturn(Optional.of(ptOne));
+		
+		//then
+		assertThrows(PtIdExce.class,()->ptService.updatePtById(1L, dtOne));
+		
+
+	}	
+
 
 }

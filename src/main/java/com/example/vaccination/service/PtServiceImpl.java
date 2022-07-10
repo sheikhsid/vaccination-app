@@ -1,16 +1,18 @@
 package com.example.vaccination.service;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
-
 
 import com.example.vaccination.dao.*;
-import com.example.vaccination.dto.PtDto;
-import com.example.vaccination.entities.PtEntities;
+import com.example.vaccination.dto.*;
+import com.example.vaccination.entities.*;
+import com.example.vaccination.exceptions.*;
 import com.example.vaccination.mapper.PtMapper;
+
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
@@ -39,13 +41,31 @@ public class PtServiceImpl implements PtService{
 	@Override
 	public PtDto updatePtById(long ptId, PtDto ptDto) {
 		
-		return null;
+		Optional<PtEntities> pt = ptDaoRef.findById(ptId);
+		if(pt.isPresent())
+		{
+			var ptOne = pt.get();
+			if(!(ptOne.getId().equals(ptDto.getId())))
+			{
+				throw new PtIdExce("Pt is not updatable, Original: "+ptOne.getId()+" Updating: "+ptDto.getId());
+			}
+		}
+		else
+		{
+			throw new PtNotFoundExce("Pt :"+ptId+" does not Exists");
+		}
+		
+		var dtPtEntities = ptMapper.ptDtoToptEntity(ptDto);
+		dtPtEntities.setId(ptId);
+		var savedPtEntities = ptDaoRef.save(dtPtEntities);
+
+        return ptMapper.ptEntityToptDto(savedPtEntities);
 	}
 
-	@Override
-	public PtDto getPtById(long ptId) {
 		
-		return null;
+	public void deleteById(long ptId) 
+	{
+		ptDaoRef.deleteById(ptId);
 	}
 
 }

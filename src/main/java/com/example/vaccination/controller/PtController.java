@@ -70,16 +70,11 @@ public class PtController
 	
 	@DeleteMapping("/{ptId}")
 	public ResponseEntity<Object>  deletePt(@PathVariable long ptId) {
-//		try 
-//		{
-			ptServiceRef.deleteById(ptId);
-			log.debug("Successfully Delet PT");
-            return new ResponseEntity<>("PT: "+ptId+" has been deleted successfully",HttpStatus.OK);			
-//		} 
-//		catch (Exception e) 
-//		{
-//			 return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-//		}
+
+		ptServiceRef.deleteById(ptId);
+		log.debug("Successfully Delet PT");
+        return new ResponseEntity<>("PT: "+ptId+" has been deleted successfully",HttpStatus.OK);			
+
 	}
 	
 

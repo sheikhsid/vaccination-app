@@ -14,7 +14,7 @@ import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.entities.PtEntities;
 import com.example.vaccination.mapper.PtMapper;
 
-public class PtMapperTest {
+class PtMapperTest {
 	
 	public static final Long ID = 1L;
 	public static final String PT_NAME = "Saad";

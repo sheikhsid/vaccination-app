@@ -23,7 +23,7 @@ import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.service.PtService;
 
 @WebMvcTest(controllers = PtWebController.class)
-public class PtWebControllerTest {
+class PtWebControllerTest {
 	
 	public static final Long ID =1L;
 	public static final String PT_NAME ="Saad";

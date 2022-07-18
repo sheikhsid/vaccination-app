@@ -68,4 +68,11 @@ public class PtServiceImpl implements PtService{
 		ptDaoRef.deleteById(ptId);
 	}
 
+	@Override
+	public PtDto getPtById(long ptId) {
+		
+		var pt = ptDaoRef.findById(ptId).orElse(null);
+		return ptMapper.ptEntityToptDto(pt);
+	}
+
 }

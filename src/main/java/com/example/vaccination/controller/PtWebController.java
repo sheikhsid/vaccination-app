@@ -40,4 +40,13 @@ public class PtWebController {
 	}
 	return "redirect:/";
 	}
+	
+	@GetMapping("/edit/{id}")
+	public String editPt(@PathVariable long id, Model model) {
+		PtDto ptById = ptServiceRef.getPtById(id);
+		model.addAttribute("pt", ptById);
+		model.addAttribute("message",
+				ptById == null ? "No pt found with id: " + id : "");
+		return "edit";
+	}
 }

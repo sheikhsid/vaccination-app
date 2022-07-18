@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Pt</title>
+	</head>
+	<body>
+			<h1>Edit Pt</h1>
+			<div th:unless="${message.empty}">
+				<span th:text="${message}"></span>
+			</div>
+			<div th:if="${message.empty}">
+				<form name="ptFotm" action="#" th:action="@{/save}"
+				th:object="${pt}" method="post">
+					<p>
+					<input type="hidden" th:field="*{id}" />
+					</p>
+					<p>
+					Name: <input type="text" th:field="*{ptName}" />
+					</p>
+					<p>
+					FiscalCode: <input type="text" th:field="*{ptFiscalCode}" />
+					</p>
+					<p>
+					VaccsionationName: <input type="text" th:field="*{ptVaccsionationName}" />
+					</p>
+					
+					
+					<button type="submit" name="btn_submit">Save</button>
+				</form>
+			</div>
+	</body>
+</html>

@@ -5,8 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.*;
 
@@ -121,7 +120,7 @@ class PtServiceImplTest {
 		ptOne.setId(1L);
 		ptOne.setPtName("Saad");
 		ptOne.setPtFiscalCode("1234567891234567");
-		ptOne.setPtVaccsionationName("Modena");;
+		ptOne.setPtVaccsionationName("Modena");
 		// When
 		ptService.deleteById(1L);
 
@@ -178,7 +177,7 @@ class PtServiceImplTest {
 	
 	
 	@Test
-	void test_UserUpdateThrowsUserIdExceptions() {
+	void testPtUpdateThrowsIdExceptions() {
 		// given
 		PtDto dtOne = new PtDto();
 		dtOne.setId(1L);
@@ -192,6 +191,46 @@ class PtServiceImplTest {
 		
 
 	}	
+	
+	@Test
+	void testGetPtByIdFound() {
+		// given
+		PtEntities ptOne = new PtEntities();
+		ptOne.setId(1L);
+		ptOne.setPtName("Saad");
+		ptOne.setPtFiscalCode("1234567891234567");
+		ptOne.setPtVaccsionationName("Modena");
 
+		PtDto dtOne = new PtDto();
+		dtOne.setId(ptOne.getId());
+		dtOne.setPtName(ptOne.getPtName());
+		dtOne.setPtFiscalCode(ptOne.getPtFiscalCode());
+		dtOne.setPtVaccsionationName(ptOne.getPtVaccsionationName());
+		
+		// When
+		when(ptDao.findById(1L)).thenReturn(Optional.of(ptOne));
+
+		PtDto dtTwo = ptService.getPtById(1L);
+		// Then
+		assertNotNull(dtTwo);
+		assertEquals(1L, dtTwo.getId());
+		assertEquals("Saad", dtTwo.getPtName());
+		then(ptDao).shouldHaveNoMoreInteractions();
+	}
+
+	@Test
+	void testGetPtByIdNotFound() {
+		// when
+		when(ptDao.findById(anyLong()))
+
+		// then
+		.thenReturn(Optional.empty());
+
+		// Assert
+		assertThat(ptService.getPtById(1)).isNull();
+	}
+
+	
+	
 
 }

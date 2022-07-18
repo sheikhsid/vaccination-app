@@ -13,5 +13,7 @@ public interface PtService
 	PtDto updatePtById(long ptId, PtDto ptDto);
 
 	void deleteById(long ptId);
+	
+	PtDto getPtById(long ptId);
 
 }

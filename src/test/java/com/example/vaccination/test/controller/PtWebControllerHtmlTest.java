@@ -21,7 +21,7 @@ import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.service.PtService;
 
 @WebMvcTest(controllers = PtWebController.class)
-public class PtWebControllerHtmlTest {
+class PtWebControllerHtmlTest {
 	
 	public static final Long ID =1L;
 	public static final String PT_NAME ="Saad";
@@ -40,13 +40,13 @@ public class PtWebControllerHtmlTest {
 	
 	
 	@Test
-	public void tesIndexPageTitle() throws Exception {
+	void tesIndexPageTitle() throws Exception {
 	HtmlPage page = webClient.getPage("/");
 	assertThat(page.getTitleText()).isEqualTo("PT");
 	}
 	
 	@Test
-	public void testIndexPageShowPtRecord() throws Exception
+	void testIndexPageShowPtRecord() throws Exception
 	{
 		List<PtDto> pt = new ArrayList<PtDto>();
 		PtDto ptOne = new PtDto();
@@ -70,7 +70,7 @@ public class PtWebControllerHtmlTest {
 	}
 	
 	@Test
-	public void testEditPtNotExist() throws Exception {
+	void testEditPtNotExist() throws Exception {
 	//when
 		when(ptService.getPtById(1L))
 	.thenReturn(null);
@@ -82,7 +82,7 @@ public class PtWebControllerHtmlTest {
 	}
 	
 	@Test
-	public void testEditPtExist() throws Exception {
+	void testEditPtExist() throws Exception {
 		
 		PtDto ptOne = new PtDto();
 		ptOne.setId(1L);

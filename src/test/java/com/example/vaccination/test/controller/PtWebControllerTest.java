@@ -95,7 +95,7 @@ public class PtWebControllerTest {
 	
 		
 	@Test
-	public void testEditPtWhenIsFound() throws Exception 
+	void testEditPtWhenIsFound() throws Exception 
 	{
 		PtDto ptOne = new PtDto();
 		ptOne.setId(1L);
@@ -114,7 +114,7 @@ public class PtWebControllerTest {
 	}
 	
 	@Test
-	public void testEditPtWhenIsNotFound() throws Exception {
+	void testEditPtWhenIsNotFound() throws Exception {
 	when(ptService.getPtById(1L)).thenReturn(null);
 	mvc.perform(get("/edit/1"))
 	.andExpect(view().name("edit"))

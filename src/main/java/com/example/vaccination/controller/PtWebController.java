@@ -14,6 +14,9 @@ import com.example.vaccination.service.PtService;
 @Controller
 public class PtWebController {
 	
+	private static final String MESSAGE = "message";
+	private static final String PT = "pt";
+	
 	@Autowired
 	private PtService ptServiceRef;
 	
@@ -24,8 +27,8 @@ public class PtWebController {
 	{
 		
 		List<PtDto> allPt = ptServiceRef.getAllPt();
-		model.addAttribute("pt", allPt);
-		model.addAttribute("message", "");
+		model.addAttribute(PT, allPt);
+		model.addAttribute(MESSAGE, "");
 		return "index";	
 	}
 	
@@ -46,8 +49,8 @@ public class PtWebController {
 	@GetMapping("/new")
 	public String newPT(Model model) {
 		
-		model.addAttribute("pt", new PtDto());
-		model.addAttribute("message", "");
+		model.addAttribute(PT, new PtDto());
+		model.addAttribute(MESSAGE, "");
 		return "edit";
 	}
 	
@@ -55,8 +58,8 @@ public class PtWebController {
 	public String editPt(@PathVariable long id, Model model) {
 		
 		PtDto ptById = ptServiceRef.getPtById(id);
-		model.addAttribute("pt", ptById);
-		model.addAttribute("message",
+		model.addAttribute(PT, ptById);
+		model.addAttribute(MESSAGE,
 				ptById == null ? "No pt found with id: " + id : "");
 		return "edit";
 		

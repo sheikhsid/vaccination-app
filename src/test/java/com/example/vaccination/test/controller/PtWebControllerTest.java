@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.ModelAndViewAssert;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import org.springframework.test.web.servlet.MockMvc;
@@ -40,19 +41,24 @@ class PtWebControllerTest {
 		
 	@Test
 	void testStatus200() throws Exception {
+		
 	mvc.perform(get("/"))
 	.andExpect(status().is2xxSuccessful());
+	
 	}
 	
 	@Test
 	void testReturnHomeView() throws Exception {
+		
 	ModelAndViewAssert.assertViewName(mvc.perform(get("/"))
 	.andReturn()
 	.getModelAndView(), "index");
+	
 	}
 	
 	@Test
 	void testGetAll_View() throws Exception {
+		
 	List<PtDto> pt = new ArrayList<PtDto>();
 	PtDto ptOne = new PtDto();
 	ptOne.setId(1L);
@@ -63,6 +69,7 @@ class PtWebControllerTest {
 	
 	when(ptService.getAllPt())
 	.thenReturn(pt);
+	
 	mvc.perform(get("/"))
 	.andExpect(view().name("index"))
 	.andExpect(model().attribute("pt",pt))
@@ -72,23 +79,27 @@ class PtWebControllerTest {
 	
 	@Test
 	void test_InsertPt() throws Exception {
+		
 	mvc.perform(post("/save")
 	.param("ptName", "Saad")
 	.param("ptFiscalCode", "1234567891234567")
 	.param("ptVaccsionationName", "Modena"))
 	.andExpect(view().name("redirect:/")); 
+	
 	verify(ptService)
 	.createNewPt(new PtDto(null, "Saad", "1234567891234567", "Modena"));
 	}
 	
 	@Test
 	void test_UpdateExistingPt() throws Exception {
+		
 	mvc.perform(post("/save")
 	.param("id", "1")
 	.param("ptName", "Saad")
 	.param("ptFiscalCode", "1234567891234567")
 	.param("ptVaccsionationName", "Modena"))
 	.andExpect(view().name("redirect:/")); 
+	
 	verify(ptService)
 	.updatePtById(1L, new PtDto(1L, "Saad", "1234567891234567", "Modena"));
 	}
@@ -115,12 +126,24 @@ class PtWebControllerTest {
 	
 	@Test
 	void testEditPtWhenIsNotFound() throws Exception {
+		
 	when(ptService.getPtById(1L)).thenReturn(null);
+	
 	mvc.perform(get("/edit/1"))
 	.andExpect(view().name("edit"))
 	.andExpect(model().attribute("pt", nullValue()))
 	.andExpect(model().attribute("message", "No pt found with id: 1"));
 	}
 	
+	
+	@Test
+	void testEditNewPT() throws Exception {		
+		
+		mvc.perform(get("/new"))
+		.andExpect(view().name("edit"))
+		.andExpect(model().attribute("pt", new PtDto()))
+		.andExpect(model().attribute("message", ""));
+		verifyNoMoreInteractions(ptService);
+	}
 	
 }

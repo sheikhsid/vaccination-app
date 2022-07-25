@@ -2,7 +2,6 @@ package com.example.vaccination.controller;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,21 +31,35 @@ public class PtWebController {
 	
 	@PostMapping("/save")
 	public String savePt(PtDto pt) {
+		
 	final Long id = pt.getId();
+	
 	if (id == null) {
 		ptServiceRef.createNewPt(pt);
 	} else {
 		ptServiceRef.updatePtById(id, pt);
 	}
 	return "redirect:/";
+	
+	}
+	
+	@GetMapping("/new")
+	public String newPT(Model model) {
+		
+		model.addAttribute("pt", new PtDto());
+		model.addAttribute("message", "");
+		return "edit";
 	}
 	
 	@GetMapping("/edit/{id}")
 	public String editPt(@PathVariable long id, Model model) {
+		
 		PtDto ptById = ptServiceRef.getPtById(id);
 		model.addAttribute("pt", ptById);
 		model.addAttribute("message",
 				ptById == null ? "No pt found with id: " + id : "");
 		return "edit";
+		
 	}
+	
 }

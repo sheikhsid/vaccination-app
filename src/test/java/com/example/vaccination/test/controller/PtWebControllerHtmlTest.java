@@ -116,4 +116,26 @@ class PtWebControllerHtmlTest {
 			.updatePtById(1L, ptTwo);
 	}
 	
+	@Test
+	void testEditNewPT() throws Exception {
+		
+		PtDto ptOne = new PtDto();
+		ptOne.setId(1L);
+		ptOne.setPtName(PT_NAME);
+		ptOne.setPtFiscalCode(PT_FISCAL_CODE);
+		ptOne.setPtVaccsionationName(PT_VACCSIONATION_NAME);
+		
+		HtmlPage page = this.webClient.getPage("/new");
+
+		//get the form with the name of ptFotm
+		final HtmlForm form = page.getFormByName("ptFotm");
+		form.getInputByName("ptName").setValueAttribute(PT_NAME);
+		form.getInputByName("ptFiscalCode").setValueAttribute(PT_FISCAL_CODE);
+		form.getInputByName("ptVaccsionationName").setValueAttribute(PT_VACCSIONATION_NAME);		
+		form.getButtonByName("btn_submit").click();
+		// verify
+		verify(ptService)
+			.createNewPt(new PtDto(null, PT_NAME, PT_FISCAL_CODE, PT_VACCSIONATION_NAME));
+	}
+	
 }

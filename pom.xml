@@ -72,7 +72,16 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>htmlunit-driver</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-support</artifactId>
+			<scope>test</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -100,6 +109,7 @@
 		 <version>1.10.5</version>
 		 <scope>test</scope>
 		 </dependency>
+		 
 	</dependencies>
 
 	<build>
@@ -229,6 +239,7 @@
 					<excludes>
 						<exclude>**/entities/*.*</exclude>
 						<exclude>**/VaccinationApplication.*</exclude>
+						<exclude>**/htmlunit/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>

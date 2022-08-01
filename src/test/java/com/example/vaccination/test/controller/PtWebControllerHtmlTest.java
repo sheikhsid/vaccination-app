@@ -58,15 +58,20 @@ class PtWebControllerHtmlTest {
 	
 		when(ptService.getAllPt())
 		.thenReturn(pt);
+		
 		HtmlPage page = this.webClient.getPage("/");
+		
 		assertThat(page.getBody().getTextContent())
 		.doesNotContain("No PT");
+		
 		HtmlTable table = page.getHtmlElementById("pt_table");
+		
 		assertThat(removeWindowsCR(table.asNormalizedText()))
 		.isEqualTo(
 					"ID	PT_NAME	PT_FISCAL_CODE	PT_VACCSIONATION_NAME\n" +
-							"1	Saad	1234567891234567	Modena" 
+							"1	Saad	1234567891234567	Modena	Edit" 
 				);
+		page.getAnchorByHref("/edit/1");
 	}
 	
 	@Test
@@ -138,4 +143,14 @@ class PtWebControllerHtmlTest {
 			.createNewPt(new PtDto(null, PT_NAME, PT_FISCAL_CODE, PT_VACCSIONATION_NAME));
 	}
 	
+	@Test
+	public void testHomePageProvideALinkForCreatingANewPT() throws Exception {
+		HtmlPage page = this.webClient.getPage("/");
+
+		assertThat(
+			page
+				.getAnchorByText("New PT")
+				.getHrefAttribute()
+		).isEqualTo("/new");
+	}
 }

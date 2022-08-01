@@ -5,6 +5,9 @@
 <title>PT</title>
 </head>
 <body>
+	<div>
+    	<a th:href="@{/new}">New PT</a>
+  	</div>
 	<!-- if record has been empty  --> 
 	<div th:if="${pt.empty}">
 		<div>No PT</div>
@@ -26,6 +29,7 @@
 				<td th:text="${pt.ptName}"></td>
 				<td th:text="${pt.ptFiscalCode}"></td>
 				<td th:text="${pt.ptVaccsionationName}"></td>
+				<td><a th:href="@{'/edit/' + ${pt.id}}">Edit</a></td>
 			</tr>
 			</tbody>
 		</table>

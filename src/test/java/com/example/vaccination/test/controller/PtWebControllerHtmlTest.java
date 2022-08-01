@@ -144,7 +144,7 @@ class PtWebControllerHtmlTest {
 	}
 	
 	@Test
-	public void testHomePageProvideALinkForCreatingANewPT() throws Exception {
+	void testHomePageProvideALinkForCreatingANewPT() throws Exception {
 		HtmlPage page = this.webClient.getPage("/");
 
 		assertThat(

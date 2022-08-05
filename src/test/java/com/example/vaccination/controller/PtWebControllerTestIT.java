@@ -1,15 +1,10 @@
 package com.example.vaccination.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,7 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.example.vaccination.dao.PtDao;
 import com.example.vaccination.dto.PtDto;
-import com.example.vaccination.entities.PtEntities;
 import com.example.vaccination.service.PtService;
 
 @ExtendWith(SpringExtension.class)
@@ -68,7 +62,7 @@ class PtWebControllerTestIT
 	}
 
 	@Test
-	public void testHomePage() 
+	void testHomePage() 
 	{
 		
 		PtDto pt = ptService.createNewPt(new PtDto(null, PT_NAME, PT_FISCAL_CODE, PT_VACCSIONATION_NAME));
@@ -84,7 +78,7 @@ class PtWebControllerTestIT
 	}	
 	
 	@Test
-	public void testEditPageNewPt() throws Exception {
+	void testEditPageNewPt() throws Exception {
 		driver.get(baseUrl + "/new");
 
 		driver.findElement(By.name("ptName")).sendKeys("ptTwo");
@@ -97,7 +91,7 @@ class PtWebControllerTestIT
 	}
 	
 	@Test
-	public void testEditPageUpdateEmployee() throws Exception {
+	void testEditPageUpdateEmployee() throws Exception {
 		
 		PtDto pt = ptService.createNewPt(new PtDto(null, PT_NAME, PT_FISCAL_CODE, PT_VACCSIONATION_NAME));
 

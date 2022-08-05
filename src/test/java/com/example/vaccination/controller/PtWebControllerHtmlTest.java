@@ -1,4 +1,4 @@
-package com.example.vaccination.test.controller;
+package com.example.vaccination.controller;
 
 import java.util.ArrayList;
 import java.util.List;

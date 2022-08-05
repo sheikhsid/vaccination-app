@@ -1,4 +1,4 @@
-package com.example.vaccination.test.controller;
+package com.example.vaccination.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.equalTo;

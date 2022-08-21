@@ -2,14 +2,12 @@ package com.example.vaccination.controller;
 
 import static io.restassured.RestAssured.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.*;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;
-import org.springframework.boot.web.server.*;
 import org.springframework.http.*;
 
 import io.restassured.*;

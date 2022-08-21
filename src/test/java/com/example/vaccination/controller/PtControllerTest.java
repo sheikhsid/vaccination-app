@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.setup.*;
 import org.springframework.validation.*;
 
 
-import com.example.vaccination.controller.PtController;
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.exceptions.PtNotFoundExce;
 import com.example.vaccination.service.PtService;

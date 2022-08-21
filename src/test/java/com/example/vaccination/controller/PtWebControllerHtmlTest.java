@@ -16,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.example.vaccination.controller.PtWebController;
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.service.PtService;
 

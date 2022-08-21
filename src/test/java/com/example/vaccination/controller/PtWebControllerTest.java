@@ -19,7 +19,6 @@ import static org.mockito.Mockito.when;
 
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.vaccination.controller.PtWebController;
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.service.PtService;
 

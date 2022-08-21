@@ -310,7 +310,7 @@
 					<excludedTestClasses>
 						<param>com.example.vaccination.**.*IT</param>
 						<param>com.example.vaccination.controller.**.*IT</param>
-						<param>com.example.vaccination.controller.PtControllerTestETOE</param>
+						<param>com.example.vaccination.controller.PtControllerTestEndToEnd</param>
 					</excludedTestClasses>
 					<targetTests>
 						<param>com.example.vaccination.service.*</param>
@@ -429,7 +429,7 @@
 							<id>e2e-tests</id>
 							<configuration>
 								<includes>
-									<include>com.example.vaccination.controller.**.*ETOE.java</include>
+									<include>com.example.vaccination.controller.**.*EndToEnd.java</include>
 								</includes>
 							</configuration>
 							<goals>

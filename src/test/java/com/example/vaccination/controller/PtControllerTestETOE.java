@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class PtControllerTestE2E 
+public class PtControllerTestETOE 
 {
 	
 	private static int port =
@@ -58,7 +58,7 @@ public class PtControllerTestE2E
 			
 		driver.findElement
 		(By.cssSelector("a[href*='/new"));
-			
+		assertThat(driver.findElement(By.id("pt_table")));	
 	}
 	
 	

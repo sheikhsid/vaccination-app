@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class PtWebController 
+public class PtWebControllerTesCase 
 {
 	
 	private static int port =

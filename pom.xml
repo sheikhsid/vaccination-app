@@ -327,6 +327,7 @@
 					</targetClasses>
 					<excludedTestClasses>
 						<param>com.example.vaccination.**.*IT</param>
+						<param>vaccination.PtWebControllerTesCase</param>
 						<param>com.example.vaccination.controller.**.*IT</param>
 						<!--  <param>com.example.vaccination.controller.PtWebControllerTestCase</param> -->
 					</excludedTestClasses>
@@ -448,7 +449,7 @@
 							<configuration>
 								<includes>
 									<!--  <include>com.example.vaccination.controller.PtWebControllerTestCase.java</include>-->
-									<include>vaccination.PtWebController.java</include>
+									<include>vaccination.PtWebControllerTesCase.java</include>
 								</includes>
 							</configuration>
 							<goals>

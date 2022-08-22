@@ -448,7 +448,7 @@
 							<configuration>
 								<includes>
 									<!--  <include>com.example.vaccination.controller.PtWebControllerTestCase.java</include>-->
-									<include>**/*E2E.java</include>
+									<include>vaccination.PtWebController.java</include>
 								</includes>
 							</configuration>
 							<goals>

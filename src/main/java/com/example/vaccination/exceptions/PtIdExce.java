@@ -10,6 +10,4 @@ public class PtIdExce extends RuntimeException {
 	{
 		super(message);
 	}
-	
-	
 }

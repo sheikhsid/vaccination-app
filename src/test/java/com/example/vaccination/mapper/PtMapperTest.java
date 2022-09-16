@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import com.example.vaccination.mapper.PtMapper;
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.entities.PtEntities;
 

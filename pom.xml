@@ -413,7 +413,7 @@
 							</portNames>
 							</configuration>
 						</execution>
-				</executions>
+				</executions> 
 				</plugin>
 				<plugin>
 					<groupId>org.springframework.boot</groupId>

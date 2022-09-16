@@ -286,6 +286,7 @@
 						<exclude>**/entities/*.*</exclude>
 						<exclude>**/VaccinationApplication.*</exclude>
 						<exclude>**/htmlunit/*</exclude>
+						<exclude>com/gargoylesoftware/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

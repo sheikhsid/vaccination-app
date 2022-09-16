@@ -7,7 +7,7 @@ import javax.validation.*;
 import org.springframework.http.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.beans.factory.annotation.*;
 
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.service.PtService;

@@ -171,7 +171,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>3.8.1</version><!--$NO-MVN-MAN-VER$-->
 				<configuration>
 					<source>11</source>
 					<target>11</target>
@@ -197,7 +197,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.22.2</version>
+				<version>2.22.2</version><!--$NO-MVN-MAN-VER$-->
 				<configuration>
 					<includes>
 						<include>**/*IT.java</include>
@@ -328,7 +328,6 @@
 					<excludedTestClasses>
 						<param>com.example.vaccination.**.*IT</param>
 						<param>com.example.vaccination.controller.**.*IT</param>
-						<!--  <param>com.example.vaccination.controller.PtWebControllerTestCase</param> -->
 					</excludedTestClasses>
 					<targetTests>
 						<param>com.example.vaccination.service.*</param>
@@ -447,7 +446,6 @@
 							<id>e2e-tests</id>
 							<configuration>
 								<includes>
-									<!--  <include>com.example.vaccination.controller.PtWebControllerTestCase.java</include>-->
 									<include>vaccination.PtWebControllerITCase.java</include>
 								</includes>
 							</configuration>

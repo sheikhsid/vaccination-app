@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import com.example.vaccination.dto.PtDto;
 import com.example.vaccination.entities.PtEntities;
-import com.example.vaccination.mapper.PtMapper;
 
 class PtMapperTest {
 	

@@ -4,7 +4,6 @@ import java.util.*;
 
 import javax.validation.*;
 
-import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
